@@ -86,7 +86,7 @@ namespace FileManager
             sw.Close();
         }
 
-        
+
         //Encrypting & Decrypting
         public static string GetHash(string ishText, string pass,
        string sol = "doberman", string cryptographicAlgorithm = "SHA1",
