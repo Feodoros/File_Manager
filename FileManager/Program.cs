@@ -16,7 +16,18 @@ namespace FileManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Intro first = new Intro();
+            DateTime end = DateTime.Now + TimeSpan.FromSeconds(6);
+            first.Show();
+            while(end > DateTime.Now)
+            {
+                Application.DoEvents();
+            }
+            first.Close();
+            first.Dispose();
+            Application.Run(new User_Authentication() /*Form1()*/ );
+
         }
     }
 }

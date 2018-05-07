@@ -17,7 +17,10 @@ namespace FileManager
         public Form2()
         {
             InitializeComponent();
+            textBox1.Text = "C:/";
+            Output_Folders();
         }
+
 
         public void Output_Folders() //Вывод папок на панель по заданному адресу.
         {
@@ -80,6 +83,11 @@ namespace FileManager
             {
                 Process.Start(Path.Combine(textBox1.Text, listBox1.SelectedItem.ToString()));
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         /*private void Form2_FormClosed(object sender, FormClosedEventArgs e)
