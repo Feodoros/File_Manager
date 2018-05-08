@@ -175,11 +175,12 @@ namespace FileManager
             List<string> Reg = new List<string>();
             string phone_number = @"(((8|\+7)[\- ]?)(\(?\d{3}\)?[\- ]?)?[\d\- ]{7})";
             string passport = @"(\d{4}\s\d{6})";
-            string mail = @"(/\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\b/i)";
+            string mail = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
             string inn = @"(/^\d{10}|\d{12}$/)";
             //string ftp = @"(((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)";
             string vk = @"(https?://([a-z1-9]+.)?[a-z1-9\-]+(\.[a-z]+){1,}/?)";
-            string Name = @"(([А-ЯЁ][а-яё]+[\-\s]?){3,})";
+            string Name = @"([A - Za - zА - Яа - яЁё]{ 3,})";
+            string date = @"([1-31]{1,2}).([1-12]{1,2}).([1950-2050]{4,4})";
             Reg.Add(phone_number);
             Reg.Add(passport);
             Reg.Add(mail);
@@ -187,6 +188,7 @@ namespace FileManager
             //Reg.Add(ftp);
             Reg.Add(vk);
             Reg.Add(Name);
+            Reg.Add(date);
             List<string> Match = new List<string>();
             foreach (string file in files)
             {
