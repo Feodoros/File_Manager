@@ -36,6 +36,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button100
@@ -100,7 +101,7 @@
             this.button4.BackColor = System.Drawing.Color.Maroon;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Location = new System.Drawing.Point(376, 276);
+            this.button4.Location = new System.Drawing.Point(345, 342);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(82, 32);
             this.button4.TabIndex = 5;
@@ -112,7 +113,7 @@
             // 
             this.button5.BackColor = System.Drawing.Color.PaleGreen;
             this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(357, 0);
+            this.button5.Location = new System.Drawing.Point(326, -1);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(101, 30);
             this.button5.TabIndex = 6;
@@ -120,13 +121,25 @@
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.MistyRose;
+            this.button6.Location = new System.Drawing.Point(54, 300);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(160, 74);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "MORE FUN";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(458, 309);
+            this.ClientSize = new System.Drawing.Size(443, 389);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
@@ -152,6 +165,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 

@@ -51,5 +51,11 @@ namespace FileManager
             Form formX = new Form6(this);
             formX.ShowDialog();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form formX = new Form_MORE_FUN();
+            formX.ShowDialog();
+        }
     }
 }

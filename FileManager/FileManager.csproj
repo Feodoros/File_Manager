@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemoMethods.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +103,18 @@
     <Compile Include="Form6.Designer.cs">
       <DependentUpon>Form6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form7.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form7.Designer.cs">
+      <DependentUpon>Form7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_MORE_FUN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_MORE_FUN.Designer.cs">
+      <DependentUpon>Form_MORE_FUN.cs</DependentUpon>
+    </Compile>
     <Compile Include="Intro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +122,7 @@
       <DependentUpon>Intro.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetX.cs" />
     <Compile Include="User Authentication.cs">
@@ -117,6 +131,7 @@
     <Compile Include="User Authentication.Designer.cs">
       <DependentUpon>User Authentication.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebsiteDataModel.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +149,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form6.resx">
       <DependentUpon>Form6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form7.resx">
+      <DependentUpon>Form7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_MORE_FUN.resx">
+      <DependentUpon>Form_MORE_FUN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Intro.resx">
       <DependentUpon>Intro.cs</DependentUpon>

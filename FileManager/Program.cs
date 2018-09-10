@@ -17,7 +17,7 @@ namespace FileManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Intro first = new Intro();
+            /*Intro first = new Intro();
             DateTime end = DateTime.Now + TimeSpan.FromSeconds(6);
             first.Show();
             while(end > DateTime.Now)
@@ -25,8 +25,8 @@ namespace FileManager
                 Application.DoEvents();
             }
             first.Close();
-            first.Dispose();
-            Application.Run(new /*User_Authentication()*/ Form1() );
+            first.Dispose();*/
+            Application.Run( new /*User_Authentication()*/  Form1() );
 
         }
     }
