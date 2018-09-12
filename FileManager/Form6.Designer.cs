@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form6));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(38, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 17);
@@ -51,6 +53,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(38, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 17);
@@ -60,6 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Location = new System.Drawing.Point(38, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(105, 17);
@@ -69,6 +73,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Location = new System.Drawing.Point(38, 151);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 17);
@@ -102,6 +107,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.PeachPuff;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.button1.Location = new System.Drawing.Point(41, 185);
@@ -124,7 +130,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightGreen;
+            this.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(342, 241);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
@@ -138,6 +145,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form6";
             this.Text = "Form6";
+            this.TransparencyKey = System.Drawing.Color.PaleTurquoise;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -22,7 +22,7 @@ namespace FileManager
         List<Thread> threads;
         static public int x = 0;
         int y = 0;
-        private static int varthgCount;
+
 
         public Form2()
         {
@@ -158,10 +158,7 @@ namespace FileManager
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -183,12 +180,12 @@ namespace FileManager
 
             Parallel.ForEach(Files, currentFile => Open_File_Then_Search_Matches(Files, Files.Length));
 
-         /* foreach (List<string> i in List)
-            {                 
-                
-                Thread thread = new Thread(() => Open_File_Then_Search_Matches(i.ToArray(), Files.Length));
-                thread.Start();
-            }*/
+            /* foreach (List<string> i in List)
+               {                 
+
+                   Thread thread = new Thread(() => Open_File_Then_Search_Matches(i.ToArray(), Files.Length));
+                   thread.Start();
+               }*/
             Matched = Open_File_Then_Search_Matches(Files, Files.Length / (Number_Of_Cores));
             File.WriteAllLines(Path_To_Save, Matched);
             MessageBox.Show("Посмотри в папке 'data' что интересного нашлось.");
@@ -257,56 +254,67 @@ namespace FileManager
             Reg.Add(date);
             List<string> Match = new List<string>();
             UpdateStatusBar += Bar_Update;
-            foreach (string file in Files)
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
+
             {
-                try
+                foreach (string file in Files)
                 {
-                    using (StreamReader sr = new StreamReader(file))
+                    try
                     {
-                        String line = sr.ReadToEnd();
-
-                        foreach (string s in Reg)
+                        using (StreamReader sr = new StreamReader(file))
                         {
+                            String line = sr.ReadToEnd();
 
-                            if (Regex.Match(line, s).Success)
+                            foreach (string s in Reg)
                             {
-                                Match.Add(file + "   " + s + "   " + Regex.Match(line, s));
+
+                                if (Regex.Match(line, s).Success)
+                                {
+                                    Match.Add(file + "   " + s + "   " + Regex.Match(line, s));
+                                }
                             }
                         }
                     }
-                }
 
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
 
-                Interlocked.Increment(ref x);                
-                //UpdateStatusBar();
+
+                    Interlocked.Increment(ref x);
+                    UpdateStatusBar();
+                }
             }
 
             return Match;
         }
 
-
         public event Action UpdateStatusBar;
 
-       public void Bar_Update()
+        public void Bar_Update()
         {
-             Action action = () =>
-            {
-                progressBar1.Maximum = Arr_Of_Files_For_Status_Bar.Length;
-                progressBar1.Value = x;
-            };
+            var watch = Stopwatch.StartNew();
+            Action action = () =>
+           {
+               progressBar1.Maximum = 500; //Arr_Of_Files_For_Status_Bar.Length;  
+               if (progressBar1.Value == 500)
+               {
+                   MessageBox.Show("Посмотри в папке 'data' что интересного нашлось.");
+
+               }
+               if (progressBar1.Value < x && x < 500)
+                   progressBar1.Value = x;
+               if (watch.ElapsedMilliseconds >= 7000)
+               {
+                   MessageBox.Show("Посмотри в папке 'data' что интересного нашлось.");
+                   progressBar1.Value = 500;
+               }
+           };
 
             Invoke(action);
         }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         static IEnumerable<ICollection<T>> Break_Up_Files_Into_List<T>(IEnumerable<T> src, int maxItems)
         {
             var list = new List<T>();
@@ -337,9 +345,52 @@ namespace FileManager
             return thg;
         }
 
+        //Ищем файлы по названию (частичному совпадению) в данной директории и в дочерних директориях (используем FindAll и фильтрацию search pattern GetFiles). 
+        private void Search_By_Name()
+        {
+            Action action = () =>
+            {
+                string[] AllFilesInThisDir1 = Directory.GetFiles(textBox1.Text, textBox2.Text, SearchOption.AllDirectories);
 
+                string[] AllFilesInThisDir = All_Files_From_This_Directory(textBox1.Text);
+                List<string> s1 = AllFilesInThisDir.ToList().FindAll(i => i.Contains(textBox2.Text) == true);
+
+                if (AllFilesInThisDir1.Length != 0)
+                    foreach (string sd in AllFilesInThisDir1)
+                    {
+                        listBox2.Items.Add(sd);
+                    }
+
+                else
+                    foreach (string sd in s1)
+                    {
+                        listBox2.Items.Add(sd);
+                    }
+            };
+            Invoke(action);
+        }
+
+        //При изменении текста в текстбоксе будет выполняться метод снова + чистка листбокса для дальнейшего вывода на "чистое".
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (y != 0)
+            {
+                listBox2.Items.Clear();
+                Thread thread = new Thread(Search_By_Name);
+                thread.Start();
+                //Search_By_Name();
+            }
+            y = 1;
+        }
+
+        private void textBox2_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
+        }
+      
         /*private void Form2_FormClosed(object sender, FormClosedEventArgs e)
               {
+              C:\Users\fzhil\Documents\проверка
                   // вызываем главную форму, которая открыла текущую, главная форма всегда = 0 - [0]
                   Form ifrm = Application.OpenForms[0];
                   ifrm.StartPosition = FormStartPosition.Manual; // меняем параметр StartPosition у Form1, иначе она будет использовать тот, который у неё прописан в настройках и всегда будет открываться по центру экрана

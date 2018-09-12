@@ -26,7 +26,7 @@ namespace FileManager
             }
             first.Close();
             first.Dispose();*/
-            Application.Run( new /*User_Authentication()*/  Form1() );
+            Application.Run( new  /*User_Authentication()*/ Form1() );
 
         }
     }
