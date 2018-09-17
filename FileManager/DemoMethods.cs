@@ -47,7 +47,7 @@ namespace FileManager
             List<string> websites = PrepData();
             List<WebsiteDataModel> output = new List<WebsiteDataModel>();
 
-            Parallel.ForEach<string>(websites, (site) =>
+            Parallel.ForEach(websites, (site) =>
            {
                WebsiteDataModel results = DownloadWebsite(site);
                output.Add(results);
@@ -65,7 +65,7 @@ namespace FileManager
 
             await Task.Run(() =>
             {
-                Parallel.ForEach<string>(websites, (site) =>
+                Parallel.ForEach(websites, (site) =>
                 {
                     WebsiteDataModel results = DownloadWebsite(site);
                     output.Add(results);
