@@ -47,7 +47,7 @@
             this.button100.Name = "button100";
             this.button100.Size = new System.Drawing.Size(160, 69);
             this.button100.TabIndex = 0;
-            this.button100.Text = "Навигация по папкам и файлам.";
+            this.button100.Text = "Файловый менеджер.";
             this.button100.UseVisualStyleBackColor = false;
             this.button100.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -59,7 +59,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 67);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Копирование и перемещение файлов.";
+            this.button1.Text = "Быстрое копирование и перемещение.";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -70,7 +70,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(160, 69);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Архивация файлов и папок.";
+            this.button2.Text = "Быстрая архивация.";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -82,7 +82,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(160, 69);
             this.button3.TabIndex = 3;
-            this.button3.Text = "Переименование, удаление.";
+            this.button3.Text = "Быстрое переименование, удаление.";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 

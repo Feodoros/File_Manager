@@ -74,7 +74,7 @@ namespace FileManager
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            var result = await DemoMethods.RunDownloadParallelAsync2(progress);
+            var result = await DemoMethods.RunDownloadParallelAsync();
             PrintResults(result);
 
             watch.Stop();
