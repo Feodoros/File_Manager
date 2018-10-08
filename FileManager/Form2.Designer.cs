@@ -47,6 +47,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.вставитьtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.вырезатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,16 +138,17 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.удалитьToolStripMenuItem,
-            this.копироватьToolStripMenuItem,
-            this.архивацияToolStripMenuItem,
             this.переименоватьtoolStripMenuItem1,
-            this.toolStripSeparator1,
             this.toolStripTextBox1,
+            this.toolStripSeparator1,
+            this.копироватьToolStripMenuItem,
+            this.вырезатьToolStripMenuItem,
             this.вставитьtoolStripMenuItem1,
-            this.вырезатьToolStripMenuItem});
+            this.toolStripSeparator2,
+            this.архивацияToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 183);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 217);
             // 
             // удалитьToolStripMenuItem
             // 
@@ -202,6 +204,11 @@
             this.вырезатьToolStripMenuItem.Text = "Вырезать";
             this.вырезатьToolStripMenuItem.Click += new System.EventHandler(this.вырезатьToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -247,5 +254,6 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripMenuItem вставитьtoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem вырезатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
