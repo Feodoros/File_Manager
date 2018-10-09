@@ -374,7 +374,23 @@ namespace FileManager
         private void listBox1_RightClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
+            {
+                if (File.Exists(textBox1.Text + "\\" + listBox1.SelectedItem.ToString()))
+                {
+                    string s = listBox1.SelectedItem.ToString();
+
+                    while (s[s.Length - 1] != '.')
+                    {
+                        s = s.Remove(s.Length - 1, 1);
+                    }
+                    s = s.Remove(s.Length - 1, 1);
+                    toolStripTextBox1.Text = s;
+                }
+                else
+                    toolStripTextBox1.Text = listBox1.SelectedItem.ToString();
+
                 contextMenuStrip1.Show(MousePosition, ToolStripDropDownDirection.Right);
+            }
         }
 
 
@@ -383,7 +399,7 @@ namespace FileManager
         //Действия кнопок контекстного меню.
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
-            toolStripTextBox1.Text = "";
+            // toolStripTextBox1.Text = "";
         }
 
         private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -436,6 +452,7 @@ namespace FileManager
                 Directory.Move(textBox1.Text + "\\" + listBox1.SelectedItem.ToString(), s + d);
 
             Output_Folders();
+
         }
 
         private void вставитьtoolStripMenuItem1_Click(object sender, EventArgs e)
