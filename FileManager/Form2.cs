@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,7 +11,6 @@ using System.IO.Compression;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
-using Ionic.Zip;
 
 namespace FileManager
 {
@@ -23,14 +21,12 @@ namespace FileManager
         List<Thread> threads;
         static public int x = 0;
         int y = 0;
-        //string[] Disks = { "C:\\", "D:\\ " };
         string s = "";
 
         public Form2()
         {
             InitializeComponent();
 
-            //listBox1.Items.AddRange(Disks);
             OutputDisks();
             Number_Of_Cores = Environment.ProcessorCount;
             threads = new List<Thread>();
@@ -75,7 +71,7 @@ namespace FileManager
             }
         }//Вывод дисков в окно ListView.
 
-        public void UpdateList()
+        public void UpdateListView()
         {
             try
             {
@@ -120,68 +116,10 @@ namespace FileManager
 
 
 
-        /*public void Output_Folders() 
-        {
-            try
-            {
-                listBox1.Items.Clear();
-
-                DirectoryInfo directory = new DirectoryInfo(textBox1.Text);
-
-                DirectoryInfo[] directoryS = directory.GetDirectories();
-
-                foreach (DirectoryInfo directoryX in directoryS)
-                {
-                    listBox1.Items.Add(directoryX);
-                }
-
-                FileInfo[] Files = directory.GetFiles();
-
-                foreach (FileInfo FileX in Files)
-                {
-                    listBox1.Items.Add(FileX);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Неверный путь, вернись.");
-                try
-                {
-                    string s = textBox1.Text;
-                    if (s[s.Length - 1] == '\\')
-                    {
-                        s = s.Remove(s.Length - 1, 1);
-                        while (s[s.Length - 1] != '\\')
-                        {
-                            s = s.Remove(s.Length - 1, 1);
-                        }
-                    }
-                    else
-                    {
-                        while (s[s.Length - 1] != '\\')
-                        {
-                            s = s.Remove(s.Length - 1, 1);
-                        }
-                    }
-                    textBox1.Text = s;
-                    Output_Folders();
-                }
-
-                catch
-                {
-                    //MessageBox.Show("Не переходите на пустую строку.");
-                    listBox1.Items.AddRange(Disks);
-                    //OutputDisks();
-                }
-            }
-        }*/
-
-
         //Действия кнопок и элементов формы.   
         private void button1_Click(object sender, EventArgs e) //Кнопка "Перейти".
         {
-            //Output_Folders();
-            UpdateList();
+            UpdateListView();
             if (textBox1.Text == "")
                 OutputDisks();
         }
@@ -195,9 +133,6 @@ namespace FileManager
                 {
                     if (s == "C:\\" || s == "D:\\" || s == "E:\\")
                     {
-                        // listBox1.Items.Clear();
-                        //string[] Disks = { "C:\\", "D:\\ " };
-                        // listBox1.Items.AddRange(Disks);
                         textBox1.Text = "";
                         OutputDisks();
                     }
@@ -220,8 +155,7 @@ namespace FileManager
                         }
 
                         textBox1.Text = s;
-                        //Output_Folders();
-                        UpdateList();
+                        UpdateListView();
                     }
                 }
             }
@@ -240,7 +174,7 @@ namespace FileManager
                 else
                     Directory.Delete(Path.Combine(textBox1.Text + "\\" + listView1.SelectedItems[0].Text), true);
                 MessageBox.Show("Удаление завершено.");
-                UpdateList();
+                UpdateListView();
             }
         }//Клавиша Delete
 
@@ -253,7 +187,7 @@ namespace FileManager
                     if (Path.GetExtension(Path.Combine(textBox1.Text, listView1.SelectedItems[0].Text)) == "")
                     {
                         textBox1.Text = Path.Combine(textBox1.Text, listView1.SelectedItems[0].Text);
-                        UpdateList();
+                        UpdateListView();
                     }
                     else
                     {
@@ -274,7 +208,7 @@ namespace FileManager
                 if (Path.GetExtension(Path.Combine(textBox1.Text, listView1.SelectedItems[0].Text)) == "" || Path.GetExtension(Path.Combine(textBox1.Text, listView1.SelectedItems[0].Text)) == ".Архив")
                 {
                     textBox1.Text = Path.Combine(textBox1.Text, listView1.SelectedItems[0].Text);
-                    UpdateList();
+                    UpdateListView();
                 }
                 else
                 {
@@ -301,31 +235,18 @@ namespace FileManager
             }
         }//Двойной щелчок по элементу в listView'е 2.
 
-        /*private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e) //Двойной щелчок по элементу в listbox'е.
+        private void button3_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Path.GetExtension(Path.Combine(textBox1.Text, listBox1.SelectedItem.ToString())) == "")
-                {
-                    textBox1.Text = Path.Combine(textBox1.Text, listBox1.SelectedItem.ToString());
-                    //Output_Folders();
-                }
-                else
-                {
-                    Process.Start(Path.Combine(textBox1.Text, listBox1.SelectedItem.ToString()));
-                }
+                string Name = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
+                (new ParallelSearchingRegFiles(new SearchHandler())).StartToSearch(Name);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+               
             }
-        }*/
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Find_User_Data();
-            /*Thread thread = new Thread(Find_User_Data);
-            thread.Start();*/
         }
 
 
@@ -543,7 +464,6 @@ namespace FileManager
                 listView2.Items.Clear();
                 Thread thread = new Thread(Search_By_Name);
                 thread.Start();
-                //Search_By_Name();
             }
             y = 1;
         }
@@ -552,29 +472,6 @@ namespace FileManager
         {
             textBox2.Text = "";
         }
-
-        /*private void listBox1_RightClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (File.Exists(textBox1.Text + "\\" + listBox1.SelectedItem.ToString()))
-                {
-                    string s = listBox1.SelectedItem.ToString();
-
-                    while (s[s.Length - 1] != '.')
-                    {
-                        s = s.Remove(s.Length - 1, 1);
-                    }
-                    s = s.Remove(s.Length - 1, 1);
-                    toolStripTextBox1.Text = s;
-                }
-                else
-                    toolStripTextBox1.Text = listBox1.SelectedItem.ToString();
-
-                contextMenuStrip1.Show(MousePosition, ToolStripDropDownDirection.Right);
-            }
-        }*/
-
 
         private void listView1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -592,11 +489,20 @@ namespace FileManager
                         }
                         s = s.Remove(s.Length - 1, 1);
                         toolStripTextBox1.Text = s;
+                        toolStripMenuItem1.Visible = true; ;
+                        toolStripTextBox2.Visible = false;
+                        toolStripSeparator3.Visible = true;
+                        toolStripTextBox2.Text = "Длина слова: ";
                     }
                     else
+                    {
                         toolStripTextBox1.Text = listView1.SelectedItems[0].Text;
-
+                        toolStripMenuItem1.Visible = false;
+                        toolStripSeparator3.Visible = false;
+                        toolStripTextBox2.Visible = false;
+                    }
                     contextMenuStrip1.Show(MousePosition, ToolStripDropDownDirection.Right);
+
                 }
                 else
                 {
@@ -607,9 +513,6 @@ namespace FileManager
                         {
                             if (s == "C:\\" || s == "D:\\" || s == "E:\\")
                             {
-                                // listBox1.Items.Clear();
-                                //string[] Disks = { "C:\\", "D:\\ " };
-                                // listBox1.Items.AddRange(Disks);
                                 textBox1.Text = "";
                                 OutputDisks();
                             }
@@ -632,8 +535,7 @@ namespace FileManager
                                 }
 
                                 textBox1.Text = s;
-                                //Output_Folders();
-                                UpdateList();
+                                UpdateListView();
                             }
                         }
                     }
@@ -660,8 +562,7 @@ namespace FileManager
             else
                 Directory.Delete(Path.Combine(textBox1.Text + "\\" + listView1.SelectedItems[0].Text), true);
             MessageBox.Show("Удаление завершено.");
-            //Output_Folders();
-            UpdateList();
+            UpdateListView();
         }
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -672,10 +573,13 @@ namespace FileManager
 
         private void архивацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Archiving();
+            ArchivingFile file = new ArchivingFile();
+           
+            string Path = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
+
+            file.Pack(Path);
             MessageBox.Show("Архивация прошла успешно.");
-            // Output_Folders();
-            UpdateList();
+            UpdateListView();
         }
 
         private void переименовать_Click(object sender, EventArgs e)
@@ -704,8 +608,7 @@ namespace FileManager
             else
                 Directory.Move(textBox1.Text + "\\" + listView1.SelectedItems[0].Text, s + d);
 
-            // Output_Folders();
-            UpdateList();
+            UpdateListView();
         }
 
         private void вставитьtoolStripMenuItem1_Click(object sender, EventArgs e)
@@ -741,8 +644,7 @@ namespace FileManager
             }
 
             MessageBox.Show("Сделано.");
-            //Output_Folders();
-            UpdateList();
+            UpdateListView();
         }
 
         private void вырезатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -808,6 +710,93 @@ namespace FileManager
                 }
             }
         }//Арихвиация файлов по одному.        
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(textBox1.Text + "\\" + listView1.SelectedItems[0].Text);
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    var WordsLength = Int16.Parse(toolStripTextBox2.Text);
+                    string Final = "";
+                    var CountLines = 0;
+                    var CountUnic = 0;
+
+
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+
+
+                    Task taskLines = Task.Run(() =>
+                    {
+                        using (var reader = File.OpenText(path))
+                        {
+                            while (reader.ReadLine() != null)
+                                CountLines++;
+                        }
+                        Final += "Количество строк: " + CountLines + "\n";
+                    });
+
+
+                    Task taskWords = Task.Run(() =>
+                    {
+                        int counter = 1;
+                        byte[] bytesInText = File.ReadAllBytes(path);
+                        string ChangedTextInFile = Encoding.Default.GetString(bytesInText).ToLower().Replace(",", "").Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                        string[] Words = ChangedTextInFile.Split();
+
+                        Final += "Количество слов: " + Words.Length + "\n";
+
+
+                        CountUnic = (from word in Words.AsParallel() select word).Distinct().Count();
+                        Final += "Количество уникальных слов: " + CountUnic + "\n";
+
+
+                        var WordGroups = Words.GroupBy(s => s).Where(g => g.Count() > 1).OrderByDescending(g => g.Count()).Select(g => g.Key).ToList();
+                        WordGroups.Remove("");
+
+                        var ListWords = (from word in WordGroups where word.Length > WordsLength select word);
+                        var topTenWords = ListWords.Take(10);
+
+                        Final += "Самые популярные слова длины большей " + WordsLength + ":\n";
+
+
+                        foreach (var word in topTenWords)
+                        {
+                            Final += counter + ": " + word + "\n";
+                            counter++;
+                        }
+                    });
+
+
+                    var finalTask = Task.Factory.ContinueWhenAll(new Task[] { taskLines, taskWords }, ant =>
+                    {
+                        stopwatch.Stop();
+                        Final += "Время работы: " + stopwatch.Elapsed.TotalSeconds + " секунд.";
+                        MessageBox.Show(Final, "Текстовая статистика.", MessageBoxButtons.OK);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Может быть выбран только текстовый файл.", "Предупреждение.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }//Статистика текстового файла.
+
+        private void toolStripMenuItem1_MouseEnter(object sender, EventArgs e)
+        {
+            toolStripTextBox2.Visible = true;
+        }
+
+        private void toolStripTextBox2_Click(object sender, EventArgs e)
+        {
+            toolStripTextBox2.Text = "";
+        }
 
 
 
