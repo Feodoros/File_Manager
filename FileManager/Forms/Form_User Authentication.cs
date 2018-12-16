@@ -31,7 +31,7 @@ namespace FileManager
                 connection.Fill(dataTable);
                 if (dataTable.Rows[0][0].ToString() == "1")
                 {
-                    Form1 f = new Form1();
+                    Form_File_Manager f = new Form_File_Manager();
                     f.Show();
                     this.Hide();
                 }

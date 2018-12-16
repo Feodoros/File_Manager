@@ -1,6 +1,6 @@
 ﻿namespace FileManager
 {
-    partial class Form2
+    partial class Form_File_Manager
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_File_Manager));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -51,14 +51,19 @@
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.менеджерЗагрузкиToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(68, 11);
+            this.button1.Location = new System.Drawing.Point(68, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(81, 41);
             this.button1.TabIndex = 0;
@@ -70,7 +75,7 @@
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(12, 11);
+            this.button2.Location = new System.Drawing.Point(13, 38);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(49, 41);
             this.button2.TabIndex = 1;
@@ -80,7 +85,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(155, 20);
+            this.textBox1.Location = new System.Drawing.Point(155, 56);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(370, 22);
             this.textBox1.TabIndex = 1;
@@ -90,7 +95,7 @@
             this.button3.BackColor = System.Drawing.Color.GreenYellow;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button3.Location = new System.Drawing.Point(13, 58);
+            this.button3.Location = new System.Drawing.Point(13, 84);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(136, 35);
             this.button3.TabIndex = 3;
@@ -100,14 +105,14 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(155, 58);
+            this.progressBar1.Location = new System.Drawing.Point(155, 84);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(369, 35);
             this.progressBar1.TabIndex = 4;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(552, 44);
+            this.textBox2.Location = new System.Drawing.Point(552, 84);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(512, 22);
             this.textBox2.TabIndex = 5;
@@ -132,7 +137,7 @@
             this.toolStripMenuItem1,
             this.toolStripTextBox2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(283, 276);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(283, 248);
             // 
             // переименоватьtoolStripMenuItem1
             // 
@@ -216,7 +221,7 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(13, 99);
+            this.listView1.Location = new System.Drawing.Point(12, 125);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(512, 388);
             this.listView1.TabIndex = 8;
@@ -228,12 +233,48 @@
             // 
             // listView2
             // 
-            this.listView2.Location = new System.Drawing.Point(552, 99);
+            this.listView2.Location = new System.Drawing.Point(552, 125);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(512, 388);
             this.listView2.TabIndex = 9;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView2_MouseDoubleClick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкиToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1085, 28);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.менеджерЗагрузкиToolStripMenuItem1,
+            this.настройкиToolStripMenuItem1});
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.настройкиToolStripMenuItem.Text = "Дополнительно";
+           
+            // 
+            // менеджерЗагрузкиToolStripMenuItem1
+            // 
+            this.менеджерЗагрузкиToolStripMenuItem1.Name = "менеджерЗагрузкиToolStripMenuItem1";
+            this.менеджерЗагрузкиToolStripMenuItem1.Size = new System.Drawing.Size(222, 26);
+            this.менеджерЗагрузкиToolStripMenuItem1.Text = "Менеджер загрузки";
+            this.менеджерЗагрузкиToolStripMenuItem1.Click += new System.EventHandler(this.менеджерЗагрузкиToolStripMenuItem1_Click);
+            // 
+            // настройкиToolStripMenuItem1
+            // 
+            this.настройкиToolStripMenuItem1.Name = "настройкиToolStripMenuItem1";
+            this.настройкиToolStripMenuItem1.Size = new System.Drawing.Size(222, 26);
+            this.настройкиToolStripMenuItem1.Text = "Настройки";
+            this.настройкиToolStripMenuItem1.Click += new System.EventHandler(this.настройкиToolStripMenuItem1_Click);
             // 
             // Form2
             // 
@@ -241,7 +282,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1110, 514);
+            this.ClientSize = new System.Drawing.Size(1085, 526);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox2);
@@ -250,12 +292,16 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Навигация по папкам и файлам.";
             this.TransparencyKey = System.Drawing.Color.PaleTurquoise;
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,5 +330,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem менеджерЗагрузкиToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem1;
     }
 }

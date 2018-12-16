@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 
 namespace FileManager
 {
-    public partial class Form6 : Form
+    public partial class Setting_Form : Form
     {
         /*SetX set = new SetX();   //For_XMLSerialization
         XmlSerializer xs;
@@ -25,7 +25,7 @@ namespace FileManager
 
         Form f;
 
-        public Form6(Form f)
+        public Setting_Form(Form f)
         {
             this.f = f;
             InitializeComponent();

@@ -174,7 +174,7 @@ namespace FileManager
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Form formX = new Form7();
+            Form formX = new Loading_Data();
             formX.ShowDialog();
         }
     }

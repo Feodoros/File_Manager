@@ -67,100 +67,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Archiving.cs" />
-    <Compile Include="DemoMethods.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Classes\Archiving.cs" />
+    <Compile Include="Classes\DemoMethods.cs" />
+    <Compile Include="Forms\Entry.cs" />
+    <Compile Include="Forms\File.cs" />
+    <Compile Include="Forms\Folder.cs" />
+    <Compile Include="Forms\Form_File_Manager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\Form_File_Manager.Designer.cs">
+      <DependentUpon>Form_File_Manager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="Forms\Form_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="Forms\Form_Settings.Designer.cs">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form3.cs">
+    <Compile Include="Forms\Form_Loading_Data.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <Compile Include="Forms\Form_Loading_Data.Designer.cs">
+      <DependentUpon>Form_Loading_Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form4.cs">
+    <Compile Include="Forms\Form_MORE_FUN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form4.Designer.cs">
-      <DependentUpon>Form4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form5.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form5.Designer.cs">
-      <DependentUpon>Form5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form6.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form6.Designer.cs">
-      <DependentUpon>Form6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form7.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form7.Designer.cs">
-      <DependentUpon>Form7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_MORE_FUN.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_MORE_FUN.Designer.cs">
+    <Compile Include="Forms\Form_MORE_FUN.Designer.cs">
       <DependentUpon>Form_MORE_FUN.cs</DependentUpon>
     </Compile>
-    <Compile Include="Intro.cs">
+    <Compile Include="Forms\Form_Intro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Intro.Designer.cs">
-      <DependentUpon>Intro.cs</DependentUpon>
+    <Compile Include="Forms\Form_Intro.Designer.cs">
+      <DependentUpon>Form_Intro.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParallelSearchingRegFiles.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ProgressReportModel.cs" />
+    <Compile Include="Classes\ParallelSearchingRegFiles.cs" />
+    <Compile Include="Classes\Program.cs" />
+    <Compile Include="Classes\ProgressReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetX.cs" />
-    <Compile Include="User Authentication.cs">
+    <Compile Include="Classes\SetX.cs" />
+    <Compile Include="Forms\Form_User Authentication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User Authentication.Designer.cs">
-      <DependentUpon>User Authentication.cs</DependentUpon>
+    <Compile Include="Forms\Form_User Authentication.Designer.cs">
+      <DependentUpon>Form_User Authentication.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebsiteDataModel.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Classes\WebsiteDataModel.cs" />
+    <EmbeddedResource Include="Forms\Form_File_Manager.resx">
+      <DependentUpon>Form_File_Manager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Form_Settings.resx">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Form_Loading_Data.resx">
+      <DependentUpon>Form_Loading_Data.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form4.resx">
-      <DependentUpon>Form4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
-      <DependentUpon>Form5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form6.resx">
-      <DependentUpon>Form6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form7.resx">
-      <DependentUpon>Form7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_MORE_FUN.resx">
+    <EmbeddedResource Include="Forms\Form_MORE_FUN.resx">
       <DependentUpon>Form_MORE_FUN.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Intro.resx">
-      <DependentUpon>Intro.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Form_Intro.resx">
+      <DependentUpon>Form_Intro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -170,9 +137,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="User Authentication.resx">
-      <DependentUpon>User Authentication.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Form_User Authentication.resx">
+      <DependentUpon>Form_User Authentication.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -200,6 +168,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Drawable\setwalls.ru-36986.jpg" />
+    <Content Include="Resources\1.png" />
+    <Content Include="Resources\Drawable\2.png" />
     <Content Include="users.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,6 +1,6 @@
 ﻿namespace FileManager
 {
-    partial class Form7
+    partial class Loading_Data
     {
         /// <summary>
         /// Required designer variable.
@@ -108,7 +108,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Name = "Form7";
-            this.Text = "Form7";
             this.ResumeLayout(false);
             this.PerformLayout();
 

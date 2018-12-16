@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace FileManager
 {
-    public partial class Form7 : Form
+    public partial class Loading_Data : Form
     {
         CancellationTokenSource token = new CancellationTokenSource();
 
-        public Form7()
+        public Loading_Data()
         {
             InitializeComponent();
 
