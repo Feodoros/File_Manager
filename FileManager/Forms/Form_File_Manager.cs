@@ -1,287 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileManager.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Windows.Forms;
-using System.IO.Compression;
-using System.Threading;
-using System.Diagnostics;
+
 
 namespace FileManager
 {
-    public partial class Form_File_Manager : Form
-    {                   
+    //class Factory
+    //{
+    //    public static Forms.Entry Get(string path)
+    //    {
+    //        if (!path.Contains(".zip"))
+    //        {
+    //            if (Forms == "")
+    //                return new FolderMethods(path);
+    //            return new FileMethods(path);
+    //        }
+    //        else
+    //        {
+    //            if (Entry.getExstention(path) == "")
+    //                return new ZipFolder(path);
+    //            return new ZipFolder(path);
+    //        }
+
+    //    }
+    //}
+
+    public partial class Form_File_Manager : MaterialForm, Resources.iView
+    {
         bool Clear_TextBox = false;
         string From_Dir = "";
+        public bool Copy_Or_Move = true;
+
+
+        public event EventHandler Settings_btn;
+        public event EventHandler Download_btn;
+        public event EventHandler Rename_btn;
+        public event EventHandler Paste_btn;
+        public event EventHandler Archiving_btn;
+        public event EventHandler Delete_btn;
+        public event EventHandler Stat_btn;
+        public event EventHandler Hash_btn;
+        public event EventHandler Search_btn;
+        public event EventHandler DoubleClick_btn;
+        public event EventHandler UpdateListView;
+        public event EventHandler DisksOutput;
+        public event EventHandler PatternSearch_box;
+        public event EventHandler GoBack;
+        public event EventHandler DoubleClick_Right_ListView;
+        public event EventHandler Create_Folder;
+        public event EventHandler Create_File;
+        public event EventHandler Encrypt;
+        public event EventHandler Decrypt;
+
+        public ListView GetSetlistView { get { return listView1; } set { } }
+        public ListView GetlistViewSecond { get { return listView2; } set { } }
+        public string getTextRename { get { return toolStripTextBox1.Text; } set { } }
+        public string getTextPattern { get { return textBox2.Text; } set { } }
+        public string getTextBox1 { get { return textBox1.Text; } set { textBox1.Text = value; } }
+        public bool copy_or_move { get { return Copy_Or_Move; } set { Copy_Or_Move = value; } }
+        public string FromDir { get { return From_Dir; } set { From_Dir = value; } }
+        public string getLengthofWord { get { return toolStripTextBox2.Text; } set { } }
+        public string getTextCryptBox { get { return key_crypt.Text; } set { } }
 
         public Form_File_Manager()
         {
             InitializeComponent();
 
-            OutputDisks();
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue700, Primary.Blue900,
+                Primary.BlueGrey500, Accent.LightBlue200,
+                TextShade.WHITE
+                );
+
+
+
+            Resources.Presenter presenter = new Resources.Presenter(this);
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            listView1.View = View.Details;
+            DisksOutput(sender, e);
         }
-
-
-
-        //----Методы формы----//
-        public void OutputDisks()
-        {
-            try
-            {
-                listView1.Items.Clear();
-
-                ImageList images = new ImageList();
-                images.ImageSize = new Size(25, 25);
-
-                images.Images.Add(Bitmap.FromFile("C:/Users/fzhil/source/repos/File_Manager/Images/2.png"));
-
-                listView1.LargeImageList = images;
-
-                var Drives = new Forms.Folder(" ").GetDriveName();
-
-                foreach (var drive in Drives)
-                {
-                    ListViewItem listview = new ListViewItem();
-                    listview.ImageIndex = 0;
-                    listview.Tag = "drive";
-                    listview.Text = drive.ToString();
-                    listView1.Items.Add(listview);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка.");
-            }
-        }//Вывод дисков в окно ListView.
-
-        public void UpdateListView()
-        {
-            try
-            {
-                listView1.Items.Clear();
-
-                ImageList images = new ImageList();
-                images.ImageSize = new Size(25, 25);
-
-                images.Images.Add(Bitmap.FromFile("C:/Users/fzhil/source/repos/File_Manager/Images/1.png"));
-                images.Images.Add(Bitmap.FromFile("C:/Users/fzhil/source/repos/File_Manager/Images/2.png"));
-
-                listView1.LargeImageList = images;
-
-                var Directories = new Forms.Folder(textBox1.Text).GetDirectories();
-                var files = new Forms.Folder(textBox1.Text).Get_Files_In_Selected_Folder();
-
-                foreach (var dir in Directories)
-                {
-                    ListViewItem listview = new ListViewItem();
-                    listview.ImageIndex = 1;
-                    var name_Of_File_Or_Directory = new Forms.Folder(dir.ToString()).GetName();
-                    listview.Text = name_Of_File_Or_Directory.ToString();
-                    listview.Tag = "directory";
-                    listView1.Items.Add(listview);
-                }
-
-                foreach (var file in files)
-                {
-                    ListViewItem listView = new ListViewItem();
-                    listView.ImageIndex = 0;
-                    var name_Of_File_Or_Directory = new Forms.Folder(file.ToString()).GetName();
-                    listView.Text = name_Of_File_Or_Directory.ToString();
-                    listView.Tag = "file";
-                    listView1.Items.Add(listView);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка.");
-                textBox1.Text = "";
-                OutputDisks();
-            }
-        }//Вывод папок и файлов в окно ListView.    
-
-        public void Back_To_Future()
-        {
-            try
-            {
-                string s = textBox1.Text;
-                if (s != "")
-                {
-                    if (s == "C:\\" || s == "D:\\" || s == "E:\\")
-                    {
-                        textBox1.Text = "";
-                        OutputDisks();
-                    }
-                    else
-                    {
-                        if (s[s.Length - 1] == '\\')
-                        {
-                            s = s.Remove(s.Length - 1, 1);
-                            while (s[s.Length - 1] != '\\')
-                            {
-                                s = s.Remove(s.Length - 1, 1);
-                            }
-                        }
-                        else
-                        {
-                            while (s[s.Length - 1] != '\\')
-                            {
-                                s = s.Remove(s.Length - 1, 1);
-                            }
-                        }
-
-                        textBox1.Text = s;
-                        UpdateListView();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка.");
-            }
-        }//Вернуться обратно.             
-
-        //Ищем файлы по названию (частичному совпадению) в данной директории и в дочерних директориях (используем FindAll и фильтрацию search pattern GetFiles). 
-        private void Search_By_Name()
-        {
-
-            Action action = () =>
-            {
-                try
-                {
-                    ImageList images = new ImageList();
-                    images.ImageSize = new Size(25, 25);
-
-                    images.Images.Add(Bitmap.FromFile("C:/Users/fzhil/source/repos/File_Manager/Images/1.png"));
-
-                    listView2.LargeImageList = images;
-
-                    string[] AllFilesInThisDir1 = new Forms.Folder(textBox1.Text).Get_Files_With_Filter(textBox2.Text);
-
-                    string[] AllFilesInThisDir = new Forms.Folder(textBox1.Text).Get_ALL_Files_From_All_Inner_Dir();
-                    List<string> List_AllFilesInThisDir = AllFilesInThisDir.ToList().FindAll(i => i.Contains(textBox2.Text) == true);
-
-                    if (AllFilesInThisDir1.Length != 0)
-                        foreach (string sd in AllFilesInThisDir1)
-                        {
-                            ListViewItem listview = new ListViewItem();
-                            listview.ImageIndex = 0;
-                            listview.Text = sd;
-                            listview.Tag = "file";
-                            listView2.Items.Add(listview);
-                        }
-
-                    else
-                        foreach (string sd in List_AllFilesInThisDir)
-                        {
-                            ListViewItem listview = new ListViewItem();
-                            listview.ImageIndex = 0;
-                            listview.Text = sd;
-                            listview.Tag = "file";
-                            listView2.Items.Add(listview);
-                        }
-                }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.ToString());
-                }
-            };
-            Invoke(action);
-        }
-
-        void CopyDir(string FromDir, string ToDir)
-        {
-            new Forms.Folder("").Create_Directory(ToDir);
-
-            foreach (string s1 in new Forms.Folder(FromDir).Get_Files_In_Selected_Folder())
-            {
-                string s2 = ToDir + "\\" + new Forms.Folder(s1.ToString()).GetName().ToString();
-                new Forms.File(s1).Copy(s2, true);
-            }
-            foreach (string s in new Forms.Folder(FromDir).GetDirectories())
-            {
-                CopyDir(s, ToDir + "\\" + new Forms.Folder(s.ToString()).GetName().ToString());
-            }
-        }//Копирование каталога со всеми файлами.
-
-        public void Archiving()
-        {
-            if (new Forms.File(listView1.SelectedItems[0].Text).Existing())
-            {
-                string ArchivedFile = textBox1.Text + "\\" + listView1.SelectedItems[0].Text + ".zip";
-                string PathOfFile = listView1.SelectedItems[0].Text;
-                Archiving_One_By_One_File(PathOfFile, ArchivedFile);
-            }
-
-            else
-            {
-                new Forms.Folder("").Create_Directory(textBox1.Text + "\\" + listView1.SelectedItems[0].Text + ".Архив");
-
-                var files = new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Get_ALL_Files_From_All_Inner_Dir();
-                string s = listView1.SelectedItems[0].Text;
-
-                Parallel.ForEach(files, (currentFile) =>
-                {
-                    string ArchivedFile = textBox1.Text + "\\" + s + ".Архив" + "\\" + currentFile.ToString() + ".zip";
-                    var PathOfFile = new Forms.Folder("").GetFullName(currentFile.ToString());
-                    Archiving_One_By_One_File(PathOfFile, ArchivedFile);
-                });
-            }
-
-        }//Archiving
-
-        public void Archiving_One_By_One_File(string PathOfFile, string ArchivedFile)
-        {
-            using (var Start = new Forms.File(PathOfFile).FileStreamCreate())
-            {
-                using (var End = new Forms.File(ArchivedFile).Create())
-                {
-                    using (GZipStream Archiving = new GZipStream(End, CompressionMode.Compress))
-                    {
-                        Start.CopyTo(Archiving);
-                    }
-                }
-            }
-        }//Арихвиация файлов по одному.        
-        //----Методы формы----//
 
 
 
         //----Действия кнопок и элементов формы----//   
-        private void button1_Click(object sender, EventArgs e) //Кнопка "Перейти".
+        private void materialFlatButton1_Click(object sender, EventArgs e) //Кнопка "Перейти".
         {
-            UpdateListView();
+            UpdateListView(sender, e);
             if (textBox1.Text == "")
-                OutputDisks();
+                DisksOutput(sender, e);
         }
 
-        private void button2_Click(object sender, EventArgs e)  //Кнопка "Назад".
+        private void materialFlatButton2_Click(object sender, EventArgs e)  //Кнопка "Назад".
         {
-            Back_To_Future();
+            GoBack(sender, e);
         }
 
         private void listView1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
-                var Exist_Dir = new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Existing();
-                var Exist_File = new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Existing();
-
-                if (Exist_Dir)
-                    new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Delete(Exist_Dir);
-
-                if (Exist_File)
-                    new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Delete();
-
-                MessageBox.Show("Удаление завершено.");
-                UpdateListView();
+                Delete_btn(sender, e);
+                UpdateListView(sender, e);
             }
         }//Клавиша Delete
 
@@ -289,91 +117,29 @@ namespace FileManager
         {
             if (e.KeyCode == Keys.Enter)
             {
-                try
-                {
-                    var Path_Selected_Item = new Forms.Folder("").Combine(textBox1.Text, listView1.SelectedItems[0].Text);
-                    var Ext_Selected_Item = new Forms.Folder(Path_Selected_Item).GetExtension();
-
-                    if (Ext_Selected_Item == "")
-                    {
-                        textBox1.Text = Path_Selected_Item;
-                        UpdateListView();
-                    }
-                    else
-                    {
-                        new Forms.File("").Start(Path_Selected_Item);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                DoubleClick_btn(sender, e);
             }
         }//Клавиша Enter              
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            try
-            {
-                var Path_Selected_Item = new Forms.Folder("").Combine(textBox1.Text, listView1.SelectedItems[0].Text);
-                var Ext_Selected_Item = new Forms.Folder(Path_Selected_Item).GetExtension();
-
-                if (Ext_Selected_Item == "")
-                {
-                    textBox1.Text = Path_Selected_Item;
-                    UpdateListView();
-                }
-                else
-                {
-                    new Forms.File("").Start(Path_Selected_Item);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            DoubleClick_btn(sender, e);
         }//Двойной щелчок по элементу в listView'е 1.       
 
         private void listView2_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var Path_Selected_Item = new Forms.Folder("").Combine(textBox1.Text, listView1.SelectedItems[0].Text);
-
-            try
-            {
-                new Forms.File("").Start(Path_Selected_Item);
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "Ошибка.");
-            }
+            DoubleClick_Right_ListView(sender, e);
         }//Двойной щелчок по элементу в listView'е 2.
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string Name = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
-                (new ParallelSearchingRegFiles(new SearchHandler())).StartToSearch(Name);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-
-            }
-        }//Поиск информации
-
-        //При изменении текста в текстбоксе будет выполняться метод снова + чистка листбокса для дальнейшего вывода на "чистое".
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             if (Clear_TextBox != false)
             {
                 listView2.Items.Clear();
-                Thread thread = new Thread(Search_By_Name);
-                thread.Start();
+                PatternSearch_box(sender, e);
             }
             Clear_TextBox = true;
-        }
+        }//При изменении текста в текстбоксе будет выполняться метод снова + чистка листбокса для дальнейшего вывода на "чистое".
 
         private void textBox2_Click(object sender, EventArgs e)
         {
@@ -400,6 +166,8 @@ namespace FileManager
                         toolStripTextBox2.Visible = false;
                         toolStripSeparator3.Visible = true;
                         toolStripTextBox2.Text = "Длина слова: ";
+
+                        toolStripMenuItem3.Text = "Hash файла.";
                     }
                     else
                     {
@@ -407,49 +175,37 @@ namespace FileManager
                         toolStripMenuItem1.Visible = false;
                         toolStripSeparator3.Visible = false;
                         toolStripTextBox2.Visible = false;
+
+                        toolStripMenuItem3.Text = "Hash папки.";
                     }
-                    contextMenuStrip1.Show(MousePosition, ToolStripDropDownDirection.Right);
+                    Context_Menu.Show(MousePosition, ToolStripDropDownDirection.Right);
 
                 }
                 else
                 {
                     if (e.Button == MouseButtons.XButton1)
                     {
-                        Back_To_Future();
+                        GoBack(sender, e);
 
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка");
+                contextMenuStrip2.Show(MousePosition, ToolStripDropDownDirection.Right);
+                MessageBox.Show(ex.Message);
             }
         } //Открытие контекстного меню
-        //----Действия кнопок и элементов формы----//
+          //----Действия кнопок и элементов формы----//
 
 
 
-        //----Действия кнопок контекстного меню----//
-        bool Copy_Or_Move = true;
-
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
-            // toolStripTextBox1.Text = "";            
-        }
-
+        //----Действия кнопок контекстного меню----//        
         private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var Exist_Dir = new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Existing();
-            var Exist_File = new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Existing();
+            Delete_btn(sender, e);
 
-            if (Exist_Dir)
-                new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Delete(Exist_Dir);
-
-            if (Exist_File)
-                new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Delete();
-
-            MessageBox.Show("Удаление завершено.");
-            UpdateListView();
+            UpdateListView(sender, e);
         }
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -460,78 +216,22 @@ namespace FileManager
 
         private void архивацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ArchivingFile file = new ArchivingFile();
+            Archiving_btn(sender, e);
 
-            string Path = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
-
-            file.Pack(Path);
-            MessageBox.Show("Архивация прошла успешно.");
-            UpdateListView();
+            UpdateListView(sender, e);
         }
 
         private void переименовать_Click(object sender, EventArgs e)
         {
-            string d = toolStripTextBox1.Text;
-            string s = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
-            var ext = new Forms.File(s).GetExtension();
+            Rename_btn(sender, e);
 
-            if (s[s.Length - 1] == '\\')
-            {
-                s = s.Remove(s.Length - 1, 1);
-                while (s[s.Length - 1] != '\\')
-                {
-                    s = s.Remove(s.Length - 1, 1);
-                }
-            }
-            else
-            {
-                while (s[s.Length - 1] != '\\')
-                {
-                    s = s.Remove(s.Length - 1, 1);
-                }
-            }
-            if (new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Existing())
-                new Forms.File(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Move(s + d + ext);
-            else
-                new Forms.Folder(textBox1.Text + "\\" + listView1.SelectedItems[0].Text).Move(s + d + ext);
-
-            UpdateListView();
+            UpdateListView(sender, e);
         }
 
         private void вставитьtoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string d = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
-            if (Copy_Or_Move)
-            {
-                try
-                {
-                    if (new Forms.File(From_Dir).Existing())
-                        new Forms.File(From_Dir).Copy(d + "/" + new Forms.File(From_Dir).GetName(), true);
-                    else
-                        CopyDir(From_Dir, d + "/" + new Forms.Folder(From_Dir).GetName());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            else
-            {
-                try
-                {
-                    if (new Forms.File(From_Dir).Existing())
-                        new Forms.File(From_Dir).Move(d + "/" + new Forms.File(From_Dir).GetName());
-                    else
-                        new Forms.Folder(From_Dir).Move(d + "/" + new Forms.File(From_Dir).GetName());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            MessageBox.Show("Сделано.");
-            UpdateListView();
+            Paste_btn(sender, e);
+            UpdateListView(sender, e);
         }
 
         private void вырезатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -542,80 +242,8 @@ namespace FileManager
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            Stat_btn(sender, e);
 
-            string path = textBox1.Text + "\\" + listView1.SelectedItems[0].Text;
-
-            if (new Forms.File(path).Existing())
-            {
-                try
-                {
-                    var WordsLength = Int16.Parse(toolStripTextBox2.Text);
-                    string Final = "";
-                    var CountLines = 0;
-                    var CountUnic = 0;
-
-
-                    Stopwatch stopwatch = Stopwatch.StartNew();
-
-
-                    Task taskLines = Task.Run(() =>
-                    {
-                        using (var reader = new Forms.File("").Open_Text(path))
-                        {
-                            while (reader.ReadLine() != null)
-                                CountLines++;
-                        }
-                        Final += "Количество строк: " + CountLines + "\n";
-                    });
-
-
-                    Task taskWords = Task.Run(() =>
-                    {
-                        int counter = 1;
-                        byte[] bytesInText = new Forms.File("").Read_All_Bytes(path);
-                        string ChangedTextInFile = Encoding.Default.GetString(bytesInText).ToLower().Replace(",", "").Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "");
-                        string[] Words = ChangedTextInFile.Split();
-
-                        Final += "Количество слов: " + Words.Length + "\n";
-
-
-                        CountUnic = (from word in Words.AsParallel() select word).Distinct().Count();
-                        Final += "Количество уникальных слов: " + CountUnic + "\n";
-
-
-                        var WordGroups = Words.GroupBy(s => s).Where(g => g.Count() > 1).OrderByDescending(g => g.Count()).Select(g => g.Key).ToList();
-                        WordGroups.Remove("");
-
-                        var ListWords = (from word in WordGroups where word.Length > WordsLength select word);
-                        var topTenWords = ListWords.Take(10);
-
-                        Final += "Самые популярные слова длины большей " + WordsLength + ":\n";
-
-
-                        foreach (var word in topTenWords)
-                        {
-                            Final += counter + ": " + word + "\n";
-                            counter++;
-                        }
-                    });
-
-
-                    var finalTask = Task.Factory.ContinueWhenAll(new Task[] { taskLines, taskWords }, ant =>
-                    {
-                        stopwatch.Stop();
-                        Final += "Время работы: " + stopwatch.Elapsed.TotalSeconds + " секунд.";
-                        MessageBox.Show(Final, "Текстовая статистика.", MessageBoxButtons.OK);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Может быть выбран только текстовый файл.", "Предупреждение.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }//Статистика текстового файла.
 
         private void toolStripMenuItem1_MouseEnter(object sender, EventArgs e)
@@ -628,19 +256,61 @@ namespace FileManager
             toolStripTextBox2.Text = "";
         }
 
-        private void менеджерЗагрузкиToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void менеджерЗагрузкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form formX = new Form_MORE_FUN();
-            formX.ShowDialog();
+            Download_btn(sender, e);
         }
 
-        private void настройкиToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form formX = new Setting_Form(this);
-            formX.ShowDialog();
+            Settings_btn(sender, e);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Hash_btn(sender, e);
+        }
+
+        private void Search_Files_Strip_Click(object sender, EventArgs e)
+        {
+            Search_btn(sender, e);
+        }
+
+        private void CreateDir_Strip_Click(object sender, EventArgs e)
+        {
+            Create_Folder(sender, e);
+            UpdateListView(sender, e);
+        }
+
+        private void Create_File_Strip_Click(object sender, EventArgs e)
+        {
+            Create_File(sender, e);
+            UpdateListView(sender, e);
+        }
+
+        private void расшифрованиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Decrypt(sender, e);
+        }
+
+        private void key_crypt_Click(object sender, EventArgs e)
+        {
+            key_crypt.Text = "";
+        }
+
+        private void шифрованиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Encrypt(sender, e);
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
         //----Действия кнопок контекстного меню----//
 
     }
+
+   
 }
 

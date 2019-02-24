@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -90,11 +91,11 @@ namespace FileManager.Forms
         }
 
 
-        public override string GetFullName(string path)
+        public string GetFullName()
         {
-            string fullname = System.IO.Path.GetFullPath(path);
+            string fullname = System.IO.Path.GetFullPath(Path);
 
-            return path;
+            return fullname;
         }
 
 
@@ -146,5 +147,56 @@ namespace FileManager.Forms
             return text;
         }
 
+
+        public string GetTextFromFile()
+        {
+            return System.IO.File.ReadAllText(Path);
+        }
+
+        public override string GetFullName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create_File()
+        {
+            FileInfo file = new FileInfo(Path);
+            file.Create();
+        }
+
+        public static FileStream GetFileStream1(string sInputFilename)
+        {
+            FileStream fsInput = new FileStream(sInputFilename,
+               FileMode.Open,
+               FileAccess.Read);
+            return fsInput;
+        }
+
+        public static FileStream GetFileStream2(string sOutputFilename)
+        {
+            FileStream fsEncrypted = new FileStream(sOutputFilename,
+               FileMode.Create,
+               FileAccess.Write);
+            return fsEncrypted;
+        }
+
+        public static StreamWriter GetStreamWriter(string sOutputFilename)
+        {
+            StreamWriter fsDecrypted = new StreamWriter(sOutputFilename);
+            return fsDecrypted;
+        }
+
+        
+        public static StreamReader GetStreamReader(CryptoStream cryptostreamDecr)
+        {
+            StreamReader sr = new StreamReader(cryptostreamDecr);
+            return sr;
+        }
+
+
+        public void Accept(Resources.IVisitor i)
+        {
+            i.Visit(this);
+        }
     }
 }

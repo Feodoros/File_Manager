@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\fzhil\Downloads\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,9 +22,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,9 +50,27 @@
   <PropertyGroup>
     <StartupObject>FileManager.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E3AEF4378E4975D9F44808F3A2F138D224DC01D2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>FileManager_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\Downloads\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,7 +88,15 @@
   <ItemGroup>
     <Compile Include="Classes\Archiving.cs" />
     <Compile Include="Classes\DemoMethods.cs" />
+    <Compile Include="Forms\Crypt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Crypt.Designer.cs">
+      <DependentUpon>Crypt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Crypter.cs" />
     <Compile Include="Forms\Entry.cs" />
+    <Compile Include="Forms\Factory.cs" />
     <Compile Include="Forms\File.cs" />
     <Compile Include="Forms\Folder.cs" />
     <Compile Include="Forms\Form_File_Manager.cs">
@@ -105,6 +132,7 @@
     <Compile Include="Classes\ParallelSearchingRegFiles.cs" />
     <Compile Include="Classes\Program.cs" />
     <Compile Include="Classes\ProgressReportModel.cs" />
+    <Compile Include="Forms\ZipFolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\SetX.cs" />
     <Compile Include="Forms\Form_User Authentication.cs">
@@ -114,6 +142,12 @@
       <DependentUpon>Form_User Authentication.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\WebsiteDataModel.cs" />
+    <Compile Include="Resources\Presenter.cs" />
+    <Compile Include="Resources\Visitor.cs" />
+    <Compile Include="ZipFile.cs" />
+    <EmbeddedResource Include="Forms\Crypt.resx">
+      <DependentUpon>Crypt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_File_Manager.resx">
       <DependentUpon>Form_File_Manager.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,6 +176,8 @@
     <EmbeddedResource Include="Forms\Form_User Authentication.resx">
       <DependentUpon>Form_User Authentication.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="FileManager_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,9 +204,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Drawable\setwalls.ru-36986.jpg" />
-    <Content Include="Resources\1.png" />
-    <Content Include="Resources\Drawable\2.png" />
+    <None Include="Resources\setwalls.ru-36986.jpg" />
     <Content Include="users.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -178,6 +212,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>users.mdf</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Drawable\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

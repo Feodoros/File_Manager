@@ -9,14 +9,15 @@ namespace FileManager.Forms
 {
     abstract class Entry
     {
-        protected string Path;
+        public string Path;
 
 
         public Entry(string path)
         {
             this.Path = path;
         }
-   
+
+       
 
         public string GetExtension()
         {

@@ -17,15 +17,15 @@ namespace FileManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            /*Intro first = new Intro();
-            DateTime end = DateTime.Now + TimeSpan.FromSeconds(6);
+            Intro first = new Intro();
+            DateTime end = DateTime.Now + TimeSpan.FromSeconds(4);
             first.Show();
             while(end > DateTime.Now)
             {
                 Application.DoEvents();
             }
             first.Close();
-            first.Dispose();*/
+            first.Dispose();
             Application.Run( new  /*User_Authentication()*/ Form_File_Manager() );
 
         }

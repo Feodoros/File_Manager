@@ -26,7 +26,7 @@ namespace FileManager
                 File.Copy(pathfile, pathfile + "_ZIP" + Path.DirectorySeparatorChar + Path.GetFileName(pathfile));
                 ZipFile.CreateFromDirectory(pathfile + "_ZIP", compressfile);
                 Directory.Delete(pathfile + "_ZIP", true);
-                MessageBox.Show("Архивация завершена.", "Архивация.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Архивация завершена.", "Архивация.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception e)
             {
@@ -35,7 +35,6 @@ namespace FileManager
         }
     }
 
-
     public abstract class Archiving
     {
 
@@ -43,7 +42,7 @@ namespace FileManager
         {
             if (File.Exists(path))
             {
-                CompressFile(path + ".txt", Path.GetDirectoryName(path) + "\\" + Path.GetFileName(path) + ".txt" + ".zip");
+                CompressFile(path , Path.GetDirectoryName(path) + "\\" + Path.GetFileName(path) + ".zip");
 
             }
 

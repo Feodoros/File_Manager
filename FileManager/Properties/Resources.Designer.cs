@@ -63,9 +63,19 @@ namespace FileManager.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap setwalls_ru_36986 {
+        internal static System.Drawing.Bitmap imageFile {
             get {
-                object obj = ResourceManager.GetObject("setwalls.ru-36986", resourceCulture);
+                object obj = ResourceManager.GetObject("imageFile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap imageFolder {
+            get {
+                object obj = ResourceManager.GetObject("imageFolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

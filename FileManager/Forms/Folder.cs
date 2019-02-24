@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileManager.Resources;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,12 +48,17 @@ namespace FileManager.Forms
         }
 
 
-        public string[] Get_ALL_Files_From_All_Inner_Dir()
+        public static string[] Get_ALL_Files_From_All_Inner_Dir(string path)
+        {            
+            string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            return files;
+        }
+
+        public string[] Get_ALL_Files_From_All_Inner_Dir1()
         {
             string[] files = Directory.GetFiles(Path, "*.*", SearchOption.AllDirectories);
             return files;
         }
-
 
         public string[] GetDirectories()
         {
@@ -89,6 +95,11 @@ namespace FileManager.Forms
             var dir = Directory.CreateDirectory(path);            
         }
 
+        public void Create_Folder()
+        {
+            DirectoryInfo dir = new DirectoryInfo(Path);
+            dir.Create();
+        }
 
         public void Delete(bool recursive)
         {
@@ -96,7 +107,7 @@ namespace FileManager.Forms
         }
 
 
-        public override string GetFullName(string name)
+        public string GetFullName()
         {
             var dir = new DirectoryInfo(Path);
             string fullname = dir.FullName;
@@ -116,6 +127,16 @@ namespace FileManager.Forms
         {
             string pass = Directory.GetCurrentDirectory();
             return pass;
+        }
+
+        public override string GetFullName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Accept(IVisitor i)
+        {
+            i.Visit(this);
         }
     }
 }
